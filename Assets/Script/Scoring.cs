@@ -30,7 +30,7 @@ public class Scoring : MonoBehaviour
         {
             forceBeingApplied += joint.currentForce.magnitude;
         }
-        Debug.Log(forceBeingApplied);
+        
         if(forceBeingApplied > minForceForScore)
         {
             currentScore = forceBeingApplied * 0.1f;
