@@ -1,21 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
     public ClickDrag clickDrag;
     public GameObject cam;
 
-    public List<GameObject> spawnables = new List<GameObject>();
+    public GameObject[] spawnables = new GameObject[2];
     public int spawnIndex;
 
-    float spawnDistance;
+    public TMP_Text currentTool;
+
     // Start is called before the first frame update
     void Start()
     {
         cam = this.gameObject;
         clickDrag = GetComponent<ClickDrag>();
+        currentTool.text = "Drag Tool";
     }
 
     // Update is called once per frame
@@ -53,15 +56,19 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             clickDrag.enabled = true;
-            
+            currentTool.text = "Drag Tool";
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SpawnItems(0);
+            clickDrag.enabled = false;
+            spawnIndex = 0;
+            currentTool.text = "Spawn: Ball";
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SpawnItems(1);
+            clickDrag.enabled = false;
+            spawnIndex = 1;
+            currentTool.text = "Spawn: Sink";
         }
         if (Input.GetMouseButtonDown(0) && clickDrag.enabled == false)
         {
@@ -69,17 +76,13 @@ public class Player : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                spawnDistance = Vector3.Distance(ray.origin, hit.point);
-
                 
+
+                Instantiate(spawnables[spawnIndex],hit.point , Quaternion.Euler(0,0,0));
             }
         }
         
     }
-    public void SpawnItems(int spawnIndex)
-    {
-        clickDrag.enabled = false;
-        
-    }
+    
    
 }

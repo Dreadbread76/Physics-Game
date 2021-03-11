@@ -34,7 +34,7 @@ public class Scoring : MonoBehaviour
         if(forceBeingApplied > minForceForScore)
         {
             currentScore = forceBeingApplied * 0.1f;
-            scoreText.text = Mathf.RoundToInt(currentScore).ToString();
+            scoreText.text = "Score: " + Mathf.RoundToInt(currentScore).ToString();
         }
     }
 }
